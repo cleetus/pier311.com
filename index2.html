@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Test page</title>
+        <script src="scripts/jquery-1.4.1.min.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div id="images">
+        </div>
+		<div id="content">
+			
+		</div>
+        <script type="text/javascript">
+            $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=fish&tagmode=any&format=json&jsoncallback=?", function(data){
+                $.each(data.items, function(i, item){
+                    $("<img/>").attr("src", item.media.m).appendTo("#images");
+                    if (i == 20) 
+                        return false;
+                });
+            });
+            
+            var url = "http://ajax.googleapis.com/ajax/services/search/web?q=google&v=1.0&callback=?";
+            $.getJSON(url, function(data){
+                if (data.responseData.results &&
+                data.responseData.results.length > 0) {
+                    var results = data.responseData.results;
+                    var content = document.getElementById('content');
+                    content.innerHTML = '';
+                    for (var i = 0; i < results.length; i++) {
+                        // Display each result however you wish
+                        content.innerHTML += results[i].cacheUrl + "<br/>";
+                    }
+                }
+            });
+        </script>
+		
+		<iframe src="https://spreadsheets.google.com/embeddedform?formkey=dFo2NkVUdlhFLVBqWWN0bDBNMHNMZUE6MQ" width="760" height="585" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    </body>
+</html>
